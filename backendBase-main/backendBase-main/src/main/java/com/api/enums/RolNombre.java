@@ -3,7 +3,11 @@ package com.api.enums;
 public enum RolNombre {
 	
 	
-	ADMINISTRADOR,
+	ADMIN,
+	USUARIO,
+	INVENTARIO,
+	JEFE_DEPARTAMENTO
+
 	
 
 }

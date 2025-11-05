@@ -10,15 +10,24 @@ import com.api.security.model.TcUsuario;
 import com.api.security.model.UsuarioPrincipal;
 
 @Service
-public class UserDetailsServiceImpl  implements UserDetailsService{
-	
-	@Autowired
-	private UsuarioServiceImp usuarioServiceImp;
-	
-	
-	public UserDetails loadUserByUsername(String sUsuario) throws UsernameNotFoundException {
-		TcUsuario usuario = usuarioServiceImp.getByNombreUsuario(sUsuario).get();
-		return UsuarioPrincipal.build(usuario);
-	}  
-
+public class UserDetailsServiceImpl implements UserDetailsService {
+    
+    @Autowired
+    private UsuarioServiceImp usuarioServiceImp;
+    
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("=== UserDetailsServiceImpl ===");
+        System.out.println("Buscando usuario por correo: " + username);
+        
+        // Usa getByCorreo() que es más claro
+        TcUsuario usuario = usuarioServiceImp.getByCorreo(username)
+                .orElseThrow(() -> {
+                    System.out.println("Usuario no encontrado: " + username);
+                    return new UsernameNotFoundException("Usuario no encontrado: " + username);
+                });
+        
+        System.out.println("Usuario encontrado: " + usuario.getCorreo());
+        return UsuarioPrincipal.build(usuario);
+    }
 }

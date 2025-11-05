@@ -2,7 +2,7 @@ package com.api.security.model;
 
 import java.io.Serializable;
 
-import com.api.enums.*;
+import com.api.enums.RolNombre;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,45 +13,46 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "tc_rol")
-public class TcRol implements Serializable{
+public class TcRol implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	@Column(name="n_id")
-	private Long nId;
-	
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "s_rol")
-	private RolNombre sRol;
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nombre")  // Mapea a la columna 'nombre' que existe en tu tabla
+    private RolNombre nombre;
+    
+    @Column(name = "descripcion")
+    private String descripcion;
 
+    // Getters y Setters
+    public Long getId() {
+        return id;
+    }
 
-	public Long getnId() {
-		return nId;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public RolNombre getRol() {
+        return nombre;
+    }
 
-	public void setnId(Long nId) {
-		this.nId = nId;
-	}
+    public void setRol(RolNombre sRol) {
+        this.nombre = sRol;
+    }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public RolNombre getsRol() {
-		return sRol;
-	}
-
-
-	public void setsRol(RolNombre sRol) {
-		this.sRol = sRol;
-	}
-
-
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

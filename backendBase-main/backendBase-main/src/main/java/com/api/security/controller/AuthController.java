@@ -20,40 +20,39 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.security.dto.*;
 import com.api.security.jwt.*;
 
-
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST })
 public class AuthController {
-	
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	private JwtProvider jwtProvider;
-	
+
 	@PostMapping("/login")
-	public ResponseEntity<JwtDto> login (@RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
+	public ResponseEntity<JwtDto> login(@RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return new ResponseEntity("campos incorrectos", HttpStatus.BAD_REQUEST);
 		}
-		
-		System.err.println("datos de acceso: "+loginUsuario);
-		
-		Authentication authentication = 
-				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getsUsuario(), loginUsuario.getsPassword()));
-		
+
+		System.err.println("datos de acceso: " + loginUsuario);
+
+		// Usar sUsuario como correo
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginUsuario.getCorreo(), loginUsuario.getContraseña()));
+
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
+
 		String jwt = jwtProvider.generateToken(authentication);
 		JwtDto jwtDto = new JwtDto(jwt);
 		System.err.println(jwtDto);
 		return new ResponseEntity(jwtDto, HttpStatus.OK);
-		
 	}
-	
+
 	@PostMapping("/refresh")
-	public ResponseEntity<JwtDto> refresh(@RequestBody JwtDto jwtDto) throws ParseException{
+	public ResponseEntity<JwtDto> refresh(@RequestBody JwtDto jwtDto) throws ParseException {
 		System.out.println(jwtDto.getToken());
 		String token = jwtProvider.refreshToken(jwtDto);
 		JwtDto jwt = new JwtDto(token);
@@ -61,4 +60,3 @@ public class AuthController {
 	}
 
 }
-

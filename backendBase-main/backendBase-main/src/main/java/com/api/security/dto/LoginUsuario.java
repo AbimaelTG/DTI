@@ -1,40 +1,28 @@
 package com.api.security.dto;
 
 public class LoginUsuario {
-	
-	
-	private String sUsuario;
-	
-	
-	private String sPassword;
+    
+    private String correo;
+    private String contraseña;
 
+    public String getCorreo() {
+        return correo;
+    }
 
-	public String getsUsuario() {
-		return sUsuario;
-	}
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
+    public String getContraseña() {
+        return contraseña;
+    }
 
-	public void setsUsuario(String sUsuario) {
-		this.sUsuario = sUsuario;
-	}
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
 
-
-	public String getsPassword() {
-		return sPassword;
-	}
-
-
-	public void setsPassword(String sPassword) {
-		this.sPassword = sPassword;
-	}
-
-
-	@Override
-	public String toString() {
-		return "LoginUsuario [sUsuario=" + sUsuario + ", sPassword=" + sPassword + "]";
-	}
-	
-	
-	
-	
+    @Override
+    public String toString() {
+        return "LoginUsuario [correo=" + correo + ", contraseña=" + contraseña + "]";
+    }
 }

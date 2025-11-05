@@ -16,59 +16,65 @@ import com.api.security.repository.UsuariosRepository;
 
 import jakarta.transaction.Transactional;
 
-
-
 @Service
 @Transactional
-public class UsuarioServiceImp  {
+public class UsuarioServiceImp {
 
-	@Autowired
-	public UsuariosRepository usuarioRepository;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	private RolServiceImpl rolServiceImpl;
-	
+    @Autowired
+    public UsuariosRepository usuarioRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private RolServiceImpl rolServiceImpl;
+    
+    // CAMBIA ESTOS MÉTODOS - buscan por correo, no por nombre de usuario
+    public Optional<TcUsuario> getByCorreo(String correo) {
+        return usuarioRepository.findByCorreo(correo);
+    }
 
+    public boolean existsByCorreo(String correo) {
+        return usuarioRepository.existsByCorreo(correo);
+    }
+    
+    // Si necesitas mantener compatibilidad, puedes dejar estos pero que usen correo internamente
+    public Optional<TcUsuario> getByNombreUsuario(String usuario) {
+        return usuarioRepository.findByCorreo(usuario);
+    }
 
-	
-	
-	//nuevos métodos para authenticacion
-
-	
-	public Optional<TcUsuario> getByNombreUsuario(String usuario) {
-		return usuarioRepository.findBysUsuario(usuario);
-	}
-
-	
-	public boolean existsByNombreUsuario(String usuario) {
-		return usuarioRepository.existsBysUsuario(usuario);
-	}
-
-	
-	public void save(NuevoUsuario nuevoUsuario) {
-		
-		TcUsuario usuario = new TcUsuario(nuevoUsuario.getsClaveUser(), nuevoUsuario.getsUsuario(), passwordEncoder.encode(nuevoUsuario.getsPassword()), nuevoUsuario.getsNombreUsuario(), nuevoUsuario.getnEstatus() );
-		
-		usuario.setRoles(asignaRol(nuevoUsuario));
-		
-		usuarioRepository.save(usuario); 	
-	}
-	
-	private Set<TcRol> asignaRol(NuevoUsuario nuevoUsuario){
-		
-		Set<TcRol> roles = new HashSet<>();	
-		
-		//roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
-		
-		if (nuevoUsuario.getRoles().contains("admin")){
-			roles.add(rolServiceImpl.getByRolNombre(RolNombre.ADMINISTRADOR).get());
-		}
-		
-		return roles;
-		
-	}
-
+    public boolean existsByNombreUsuario(String usuario) {
+        return usuarioRepository.existsByCorreo(usuario);
+    }
+    
+    public void save(NuevoUsuario nuevoUsuario) {
+        
+        TcUsuario usuario = new TcUsuario(
+            nuevoUsuario.getNombre(),
+            nuevoUsuario.getApellidoPaterno(),
+            nuevoUsuario.getApellidoMaterno(),
+            nuevoUsuario.getCorreo(),
+            nuevoUsuario.getTelefono(),
+            passwordEncoder.encode(nuevoUsuario.getContraseña()),
+            nuevoUsuario.getClaveServidor(),
+            nuevoUsuario.getNIdDependencias(),
+            nuevoUsuario.getCodigoVerificacion(),
+            nuevoUsuario.getActivo()
+        );
+        
+        usuario.setRoles(asignaRol(nuevoUsuario));
+        
+        usuarioRepository.save(usuario);     
+    }
+    
+    private Set<TcRol> asignaRol(NuevoUsuario nuevoUsuario){
+        
+        Set<TcRol> roles = new HashSet<>();    
+        if (nuevoUsuario.getRoles().contains("admin")){
+            roles.add(rolServiceImpl.getByRolNombre(RolNombre.ADMIN).get());
+        }
+        
+        return roles;
+        
+    }
 }

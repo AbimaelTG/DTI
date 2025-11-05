@@ -1,7 +1,6 @@
 package com.api.security.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,8 +15,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-
-
 @Entity
 @Table(name = "tc_usuarios")
 public class TcUsuario implements Serializable {
@@ -25,41 +22,61 @@ public class TcUsuario implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "n_id")
+	@Column(name = "N_id")
 	private Long nId;
 
-	@Column(name = "s_claveuser")
-	private String sClaveUser;
-	
-	@Column(name = "s_usuario")
-	private String sUsuario;
-	
-	@Column(name = "s_password")
-	private String sPassword;
+	@Column(name = "nombre")
+	private String nombre;
 
-	@Column(name = "s_nombreUsuario")
-	private String sNombreUsuario;
+	@Column(name = "apellido_Paterno")
+	private String apellidoPaterno;
 
+	@Column(name = "apellido_Materno")
+	private String apellidoMaterno;
 
-	@Column(name = "n_estatus")
-	private Integer nEstatus;
-	
-	
+	@Column(name = "correo")
+	private String correo;
+
+	@Column(name = "telefono")
+	private String telefono;
+
+	@Column(name = "contraseña")
+	private String contraseña;
+
+	@Column(name = "clave_servidor")
+	private String claveServidor;
+
+	@Column(name = "N_id_dependencias")
+	private Integer nIdDependencias;
+
+	@Column(name = "codigo_verificacion")
+	private String codigoVerificacion;
+
+	@Column(name = "activo")
+	private Boolean activo;
+
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name= "tr_usuario_rol", joinColumns =  @JoinColumn(name = "usuario_id") , inverseJoinColumns = @JoinColumn(name = "rol_id"))
+	@JoinTable(name = "tr_rol_usuarios", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_rol"))
 	private Set<TcRol> roles = new HashSet<>();
 
 	public TcUsuario() {
 	}
-	
-	public TcUsuario(String sClaveUser, String sUsuario, String sPassword, String sNombreUsuario, Integer nEstatus) {
-		this.sClaveUser = sClaveUser;
-		this.sUsuario = sUsuario;
-		this.sPassword = sPassword;
-		this.sNombreUsuario = sNombreUsuario;
-		this.nEstatus = nEstatus;
+
+	// Constructor completo
+	public TcUsuario(String nombre, String apellidoPaterno, String apellidoMaterno,String correo, String telefono, String contraseña,String claveServidor, Integer nIdDependencias,String codigoVerificacion, Boolean activo) {
+		this.nombre = nombre;
+		this.apellidoPaterno = apellidoPaterno;
+		this.apellidoMaterno = apellidoMaterno;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.contraseña = contraseña;
+		this.claveServidor = claveServidor;
+		this.nIdDependencias = nIdDependencias;
+		this.codigoVerificacion = codigoVerificacion;
+		this.activo = activo;
 	}
 
+	// Getters y Setters
 	public Long getnId() {
 		return nId;
 	}
@@ -68,44 +85,84 @@ public class TcUsuario implements Serializable {
 		this.nId = nId;
 	}
 
-	public String getsClaveUser() {
-		return sClaveUser;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setsClaveUser(String sClaveUser) {
-		this.sClaveUser = sClaveUser;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getsUsuario() {
-		return sUsuario;
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
 	}
 
-	public void setsUsuario(String sUsuario) {
-		this.sUsuario = sUsuario;
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
 	}
 
-	public String getsPassword() {
-		return sPassword;
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
 	}
 
-	public void setsPassword(String sPassword) {
-		this.sPassword = sPassword;
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
 	}
 
-	public String getsNombreUsuario() {
-		return sNombreUsuario;
+	public String getCorreo() {
+		return correo;
 	}
 
-	public void setsNombreUsuario(String sNombreUsuario) {
-		this.sNombreUsuario = sNombreUsuario;
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
-	public Integer getnEstatus() {
-		return nEstatus;
+	public String getTelefono() {
+		return telefono;
 	}
 
-	public void setnEstatus(Integer nEstatus) {
-		this.nEstatus = nEstatus;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+
+	public String getClaveServidor() {
+		return claveServidor;
+	}
+
+	public void setClaveServidor(String claveServidor) {
+		this.claveServidor = claveServidor;
+	}
+
+	public Integer getnIdDependencias() {
+		return nIdDependencias;
+	}
+
+	public void setnIdDependencias(Integer nIdDependencias) {
+		this.nIdDependencias = nIdDependencias;
+	}
+
+	public String getCodigoVerificacion() {
+		return codigoVerificacion;
+	}
+
+	public void setCodigoVerificacion(String codigoVerificacion) {
+		this.codigoVerificacion = codigoVerificacion;
+	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
 	}
 
 	public Set<TcRol> getRoles() {
@@ -118,18 +175,10 @@ public class TcUsuario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TcUsuario [nId=" + nId + ", sClaveUser=" + sClaveUser + ", sUsuario=" + sUsuario + ", sPassword="
-				+ sPassword + ", sNombreUsuario=" + sNombreUsuario + ", nEstatus=" + nEstatus + ", roles=" + roles
-				+ "]";
+		return "TcUsuario [nId=" + nId + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno
+				+ ", apellidoMaterno=" + apellidoMaterno + ", correo=" + correo + ", telefono=" + telefono
+				+ ", contraseña=" + contraseña + ", claveServidor=" + claveServidor + ", nIdDependencias="
+				+ nIdDependencias + ", codigoVerificacion=" + codigoVerificacion + ", activo=" + activo + ", roles="
+				+ roles + "]";
 	}
-
-
-
-	
-	
-
-
-
-	
-
 }

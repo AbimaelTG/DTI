@@ -13,14 +13,12 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class RolServiceImpl{
-	
-	@Autowired
-	private RolRepository rolRepository;
+public class RolServiceImpl {
 
-	
-	public Optional<TcRol> getByRolNombre(RolNombre sRol) {
-		return rolRepository.findBysRol(sRol);
-	}
+    @Autowired
+    RolRepository rolRepository;
 
+    public Optional<TcRol> getByRolNombre(RolNombre rolNombre) {
+        return rolRepository.findByNombre(rolNombre);
+    }
 }

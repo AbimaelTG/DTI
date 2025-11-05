@@ -8,10 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.api.enums.RolNombre;
 import com.api.security.model.TcRol;
 
-
 @Repository
 public interface RolRepository extends JpaRepository<TcRol, Long> {
-	
-	Optional<TcRol> findBysRol(RolNombre sRol);
-	
+    
+    Optional<TcRol> findByNombre(RolNombre nombre);
 }

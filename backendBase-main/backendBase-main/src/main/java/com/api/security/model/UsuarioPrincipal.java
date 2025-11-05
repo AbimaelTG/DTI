@@ -1,7 +1,6 @@
 package com.api.security.model;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,112 +8,151 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UsuarioPrincipal implements UserDetails{
+public class UsuarioPrincipal implements UserDetails {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Long nId;
-	private String sClaveUser;
-	private String sUsuario;
-	private String sPassword;
-	private String sNombreUsuario;
-	private Integer nEstatus;
+	private String nombre;
+	private String apellidoPaterno;
+	private String apellidoMaterno;
+	private String correo;
+	private String telefono;
+	private String contraseña;
+	private String claveServidor;
+	private Integer nIdDependencias;
+	private String codigoVerificacion;
+	private Boolean activo;
 	private Collection<? extends GrantedAuthority> authorities;
 	
-	
-	
-	
-	public UsuarioPrincipal(Long nId, String sClaveUser , String sUsuario, String sPassword, String sNombreUsuario
-			, Integer nEstatus , Collection<? extends GrantedAuthority> authorities) {
-		this.nId=nId;
-		this.sClaveUser = sClaveUser;
-		this.sUsuario = sUsuario;
-		this.sPassword = sPassword;
-		this.sNombreUsuario = sNombreUsuario;
-		this.nEstatus=nEstatus;
+	public UsuarioPrincipal(Long nId, String nombre, String apellidoPaterno, String apellidoMaterno, 
+							String correo, String telefono, String contraseña, String claveServidor,
+							Integer nIdDependencias, String codigoVerificacion, Boolean activo,
+							Collection<? extends GrantedAuthority> authorities) {
+		this.nId = nId;
+		this.nombre = nombre;
+		this.apellidoPaterno = apellidoPaterno;
+		this.apellidoMaterno = apellidoMaterno;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.contraseña = contraseña;
+		this.claveServidor = claveServidor;
+		this.nIdDependencias = nIdDependencias;
+		this.codigoVerificacion = codigoVerificacion;
+		this.activo = activo;
 		this.authorities = authorities;
 	}
 	
 	/**
-	 * se encarga de asignar los privilegios a cada usuario ya sea admin o user 
+	 * Se encarga de asignar los privilegios a cada usuario ya sea admin o user 
 	 * @param usuario
 	 * @return
 	 */
-	public static  UsuarioPrincipal build(TcUsuario usuario) {
+	public static UsuarioPrincipal build(TcUsuario usuario) {
 		
-		//obtine los roles
+		// Obtiene los roles
 		List<GrantedAuthority> authorities = usuario.getRoles().stream()
-				.map(rol -> new SimpleGrantedAuthority(rol.getsRol().name()))
+				.map(rol -> new SimpleGrantedAuthority(rol.getRol().name()))
 				.collect(Collectors.toList());
 		
-		//regresa el usuario con sus privilegios
-		return new UsuarioPrincipal(usuario.getnId(),usuario.getsClaveUser(), usuario.getsUsuario(), usuario.getsPassword(), usuario.getsNombreUsuario(),usuario.getnEstatus(), authorities);
+		// Regresa el usuario con sus privilegios
+		return new UsuarioPrincipal(
+			usuario.getnId(),
+			usuario.getNombre(),
+			usuario.getApellidoPaterno(),
+			usuario.getApellidoMaterno(),
+			usuario.getCorreo(),
+			usuario.getTelefono(),
+			usuario.getContraseña(),
+			usuario.getClaveServidor(),
+			usuario.getnIdDependencias(),
+			usuario.getCodigoVerificacion(),
+			usuario.getActivo(),
+			authorities
+		);
 	}
 	
-	 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
 		return authorities;
 	}
+	
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return sPassword;
+		return contraseña;
 	}
+	
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return sUsuario;
+		return correo; // Usamos el correo como username para autenticación
 	}
+	
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
+	
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
+	
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
+	
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
+		return activo != null ? activo : true;
 	}
 
-	public String getsClaveUser() {
-		return sClaveUser;
-	}
-
-
-	public String getsNombreUsuario() {
-		return sNombreUsuario;
-	}
-
-	public Integer getnEstatus() {
-		return nEstatus;
-	}
-
+	// Getters
 	public Long getnId() {
 		return nId;
 	}
 
-	
-	
-	
+	public String getNombre() {
+		return nombre;
+	}
 
-	
-	
-	
-	
-	
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
 
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public String getClaveServidor() {
+		return claveServidor;
+	}
+
+	public Integer getnIdDependencias() {
+		return nIdDependencias;
+	}
+
+	public String getCodigoVerificacion() {
+		return codigoVerificacion;
+	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+	
+	// Método para obtener el nombre completo
+	public String getNombreCompleto() {
+		return nombre + " " + apellidoPaterno + (apellidoMaterno != null ? " " + apellidoMaterno : "");
+	}
 }

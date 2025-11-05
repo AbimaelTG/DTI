@@ -3,77 +3,113 @@ package com.api.security.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-
 public class NuevoUsuario {
 	
-	
-	private String sClaveUser;
-	private String sUsuario;
-	private String sPassword;
-	private String sNombreUsuario;
-	private Integer nEstatus;
+	private String nombre;
+	private String apellidoPaterno;
+	private String apellidoMaterno;
+	private String correo;
+	private String telefono;
+	private String contraseña;
+	private String claveServidor;
+	private Integer nIdDependencias;
+	private String codigoVerificacion;
+	private Boolean activo;
 	private Set<String> roles = new HashSet<>();
-	private String rfcDistribuidor;
 	
+	public String getNombre() {
+		return nombre;
+	}
 	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
 	
-	public String getsClaveUser() {
-		return sClaveUser;
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
 	}
-	public void setsClaveUser(String sClaveUser) {
-		this.sClaveUser = sClaveUser;
+	
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
 	}
-	public String getsUsuario() {
-		return sUsuario;
+	
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
 	}
-	public void setsUsuario(String sUsuario) {
-		this.sUsuario = sUsuario;
+	
+	public String getCorreo() {
+		return correo;
 	}
-	public String getsPassword() {
-		return sPassword;
+	
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
-	public void setsPassword(String sPassword) {
-		this.sPassword = sPassword;
+	
+	public String getTelefono() {
+		return telefono;
 	}
-	public String getsNombreUsuario() {
-		return sNombreUsuario;
+	
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
-	public void setsNombreUsuario(String sNombreUsuario) {
-		this.sNombreUsuario = sNombreUsuario;
+	
+	public String getContraseña() {
+		return contraseña;
 	}
-	public Integer getnEstatus() {
-		return nEstatus;
+	
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
-	public void setnEstatus(Integer nEstatus) {
-		this.nEstatus = nEstatus;
+	
+	public String getClaveServidor() {
+		return claveServidor;
 	}
+	
+	public void setClaveServidor(String claveServidor) {
+		this.claveServidor = claveServidor;
+	}
+	
+	public Integer getNIdDependencias() {
+		return nIdDependencias;
+	}
+	
+	public void setNIdDependencias(Integer nIdDependencias) {
+		this.nIdDependencias = nIdDependencias;
+	}
+	
+	public String getCodigoVerificacion() {
+		return codigoVerificacion;
+	}
+	
+	public void setCodigoVerificacion(String codigoVerificacion) {
+		this.codigoVerificacion = codigoVerificacion;
+	}
+	
+	public Boolean getActivo() {
+		return activo;
+	}
+	
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+	
 	public Set<String> getRoles() {
 		return roles;
 	}
+	
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
 	}
 	
-	public String getRfcDistribuidor() {
-		return rfcDistribuidor;
-	}
-	public void setRfcDistribuidor(String rfcDistribuidor) {
-		this.rfcDistribuidor = rfcDistribuidor;
-	}
-	
 	@Override
 	public String toString() {
-		return "NuevoUsuario [sClaveUser=" + sClaveUser + ", sUsuario=" + sUsuario + ", sPassword=" + sPassword
-				+ ", sNombreUsuario=" + sNombreUsuario + ", nEstatus=" + nEstatus + ", roles=" + roles
-				+ ", rfcDistribuidor=" + rfcDistribuidor + "]";
+		return "NuevoUsuario [nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno="
+				+ apellidoMaterno + ", correo=" + correo + ", telefono=" + telefono + ", contraseña=" + contraseña
+				+ ", claveServidor=" + claveServidor + ", nIdDependencias=" + nIdDependencias + ", codigoVerificacion="
+				+ codigoVerificacion + ", activo=" + activo + ", roles=" + roles + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-
 }
