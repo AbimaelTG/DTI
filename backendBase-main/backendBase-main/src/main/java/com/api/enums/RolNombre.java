@@ -5,8 +5,7 @@ public enum RolNombre {
 	
 	ADMIN,
 	USUARIO,
-	INVENTARIO,
-	JEFE_DEPARTAMENTO
+	INVENTARIO
 
 	
 

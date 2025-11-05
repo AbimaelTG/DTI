@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.api.enums.RolNombre;
-import com.api.security.dto.NuevoUsuario;
+import com.api.security.dto.Usuario;
 import com.api.security.model.TcRol;
 import com.api.security.model.TcUsuario;
 import com.api.security.repository.UsuariosRepository;
@@ -56,7 +56,7 @@ public class UsuarioServiceImp {
         return usuarioRepository.existsByCorreo(usuario);
     }
 
-    public void save(NuevoUsuario nuevoUsuario) {
+    public void save(Usuario nuevoUsuario) {
 
         TcUsuario usuario = new TcUsuario(
                 nuevoUsuario.getNombre(),
@@ -75,7 +75,7 @@ public class UsuarioServiceImp {
         usuarioRepository.save(usuario);
     }
 
-    public void actualizar(Long id, NuevoUsuario nuevoUsuario) {
+    public void actualizar(Long id, Usuario nuevoUsuario) {
 
         TcUsuario usuario = usuarioRepository.findById(id).get();
 
@@ -98,7 +98,7 @@ public class UsuarioServiceImp {
     public void eliminar(Long id) {
         usuarioRepository.deleteById(id);
     }
-    private Set<TcRol> asignaRol(NuevoUsuario nuevoUsuario) {
+    private Set<TcRol> asignaRol(Usuario nuevoUsuario) {
         Set<TcRol> roles = new HashSet<>();
 
         if (nuevoUsuario.getRoles() != null && !nuevoUsuario.getRoles().isEmpty()) {
@@ -117,6 +117,8 @@ public class UsuarioServiceImp {
 
         System.err.println("Roles asignados: " + roles);
         return roles;
+
+        //Hola
     }
 
 }

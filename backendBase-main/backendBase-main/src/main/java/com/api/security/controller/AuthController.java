@@ -63,7 +63,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/usuario")
-	public ResponseEntity<?> nuevo(@RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
+	public ResponseEntity<?> nuevo(@RequestBody Usuario nuevoUsuario, BindingResult bindingResult) {
 
 		System.err.println("Datos de nuevo usuario: " + nuevoUsuario);
 
@@ -86,7 +86,7 @@ public class AuthController {
 	}
 
 	@PutMapping("/usuario/{id}")
-	public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody NuevoUsuario nuevoUsuario,
+	public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody Usuario nuevoUsuario,
 			BindingResult bindingResult) {
 
 		System.err.println("Actualizando usuario ID: " + id + " con datos: " + nuevoUsuario);
