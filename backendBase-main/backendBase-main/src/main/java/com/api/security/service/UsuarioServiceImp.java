@@ -22,14 +22,22 @@ public class UsuarioServiceImp {
 
     @Autowired
     public UsuariosRepository usuarioRepository;
-    
+
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
     @Autowired
     private RolServiceImpl rolServiceImpl;
-    
+
     // CAMBIA ESTOS MÉTODOS - buscan por correo, no por nombre de usuario
+    public boolean existsById(Long id) {
+        return usuarioRepository.existsById(id);
+    }
+
+    public Optional<TcUsuario> getById(Long id) {
+        return usuarioRepository.findById(id);
+    }
+
     public Optional<TcUsuario> getByCorreo(String correo) {
         return usuarioRepository.findByCorreo(correo);
     }
@@ -37,8 +45,9 @@ public class UsuarioServiceImp {
     public boolean existsByCorreo(String correo) {
         return usuarioRepository.existsByCorreo(correo);
     }
-    
-    // Si necesitas mantener compatibilidad, puedes dejar estos pero que usen correo internamente
+
+    // Si necesitas mantener compatibilidad, puedes dejar estos pero que usen correo
+    // internamente
     public Optional<TcUsuario> getByNombreUsuario(String usuario) {
         return usuarioRepository.findByCorreo(usuario);
     }
@@ -46,35 +55,68 @@ public class UsuarioServiceImp {
     public boolean existsByNombreUsuario(String usuario) {
         return usuarioRepository.existsByCorreo(usuario);
     }
-    
+
     public void save(NuevoUsuario nuevoUsuario) {
-        
+
         TcUsuario usuario = new TcUsuario(
-            nuevoUsuario.getNombre(),
-            nuevoUsuario.getApellidoPaterno(),
-            nuevoUsuario.getApellidoMaterno(),
-            nuevoUsuario.getCorreo(),
-            nuevoUsuario.getTelefono(),
-            passwordEncoder.encode(nuevoUsuario.getContraseña()),
-            nuevoUsuario.getClaveServidor(),
-            nuevoUsuario.getNIdDependencias(),
-            nuevoUsuario.getCodigoVerificacion(),
-            nuevoUsuario.getActivo()
-        );
-        
+                nuevoUsuario.getNombre(),
+                nuevoUsuario.getApellidoPaterno(),
+                nuevoUsuario.getApellidoMaterno(),
+                nuevoUsuario.getCorreo(),
+                nuevoUsuario.getTelefono(),
+                passwordEncoder.encode(nuevoUsuario.getContraseña()),
+                nuevoUsuario.getClaveServidor(),
+                nuevoUsuario.getNIdDependencias(),
+                nuevoUsuario.getCodigoVerificacion(),
+                nuevoUsuario.getActivo());
+
         usuario.setRoles(asignaRol(nuevoUsuario));
-        
-        usuarioRepository.save(usuario);     
+
+        usuarioRepository.save(usuario);
     }
-    
-    private Set<TcRol> asignaRol(NuevoUsuario nuevoUsuario){
-        
-        Set<TcRol> roles = new HashSet<>();    
-        if (nuevoUsuario.getRoles().contains("admin")){
-            roles.add(rolServiceImpl.getByRolNombre(RolNombre.ADMIN).get());
+
+    public void actualizar(Long id, NuevoUsuario nuevoUsuario) {
+
+        TcUsuario usuario = usuarioRepository.findById(id).get();
+
+        usuario.setNombre(nuevoUsuario.getNombre());
+        usuario.setApellidoPaterno(nuevoUsuario.getApellidoPaterno());
+        usuario.setApellidoMaterno(nuevoUsuario.getApellidoMaterno());
+        usuario.setCorreo(nuevoUsuario.getCorreo());
+        usuario.setTelefono(nuevoUsuario.getTelefono());
+        usuario.setClaveServidor(nuevoUsuario.getClaveServidor());
+        usuario.setnIdDependencias(nuevoUsuario.getNIdDependencias());
+        usuario.setCodigoVerificacion(nuevoUsuario.getCodigoVerificacion());
+        usuario.setActivo(nuevoUsuario.getActivo());
+
+        usuario.setRoles(asignaRol(nuevoUsuario));
+
+        usuarioRepository.save(usuario);
+
+    }
+
+    public void eliminar(Long id) {
+        usuarioRepository.deleteById(id);
+    }
+    private Set<TcRol> asignaRol(NuevoUsuario nuevoUsuario) {
+        Set<TcRol> roles = new HashSet<>();
+
+        if (nuevoUsuario.getRoles() != null && !nuevoUsuario.getRoles().isEmpty()) {
+            for (String rol : nuevoUsuario.getRoles()) {
+                try {
+                    RolNombre rolNombre = RolNombre.valueOf(rol.toUpperCase());
+                    rolServiceImpl.getByRolNombre(rolNombre).ifPresent(roles::add);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Rol no encontrado: " + rol);
+                }
+            }
         }
-        
+        if (roles.isEmpty()) {
+            rolServiceImpl.getByRolNombre(RolNombre.USUARIO).ifPresent(roles::add);
+        }
+
+        System.err.println("Roles asignados: " + roles);
         return roles;
-        
     }
+
 }
