@@ -64,7 +64,7 @@ public class UsuarioPrincipal implements UserDetails {
 			usuario.getTelefono(),
 			usuario.getContraseña(),
 			usuario.getClaveServidor(),
-			usuario.getnIdDependencias(),
+			usuario.getIdDependencias(),
 			usuario.getCodigoVerificacion(),
 			usuario.getActivo(),
 			authorities
