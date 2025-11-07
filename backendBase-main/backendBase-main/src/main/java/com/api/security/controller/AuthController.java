@@ -46,7 +46,7 @@ public class AuthController {
 		}
 		System.err.println("datos de acceso: " + loginUsuario);
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginUsuario.getCorreo(), loginUsuario.getContraseña()));
+				new UsernamePasswordAuthenticationToken(loginUsuario.getCorreo(), loginUsuario.getContrasena()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtProvider.generateToken(authentication);
 		JwtDto jwtDto = new JwtDto(jwt);
