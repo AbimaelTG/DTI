@@ -24,7 +24,7 @@ public class TcCategoria implements Serializable {
     private String nombre;
 
     @Column(name = "descripcion")
-    private String descipcion;
+    private String descripcion;
 
     public Long getId(){
         return id;
@@ -43,10 +43,10 @@ public class TcCategoria implements Serializable {
     }
 
     public String getDescripcion(){
-        return descipcion;
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion){
-        this.descipcion = descripcion;
+        this.descripcion = descripcion;
     }
 }

@@ -64,9 +64,9 @@ public class UsuarioServiceImp {
                 nuevoUsuario.getApellidoMaterno(),
                 nuevoUsuario.getCorreo(),
                 nuevoUsuario.getTelefono(),
-                passwordEncoder.encode(nuevoUsuario.getContraseña()),
+                passwordEncoder.encode(nuevoUsuario.getContrasena()),
                 nuevoUsuario.getClaveServidor(),
-                nuevoUsuario.getIdDependencias(),
+                nuevoUsuario.getIdDependencia(),
                 nuevoUsuario.getCodigoVerificacion(),
                 nuevoUsuario.getActivo());
 
@@ -85,7 +85,7 @@ public class UsuarioServiceImp {
         usuario.setCorreo(nuevoUsuario.getCorreo());
         usuario.setTelefono(nuevoUsuario.getTelefono());
         usuario.setClaveServidor(nuevoUsuario.getClaveServidor());
-        usuario.setIdDependencias(nuevoUsuario.getIdDependencias());
+        usuario.setIdDependencia(nuevoUsuario.getIdDependencia());
         usuario.setCodigoVerificacion(nuevoUsuario.getCodigoVerificacion());
         usuario.setActivo(nuevoUsuario.getActivo());
 

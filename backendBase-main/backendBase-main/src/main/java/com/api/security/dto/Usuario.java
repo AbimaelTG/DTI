@@ -10,9 +10,9 @@ public class Usuario {
 	private String apellidoMaterno;
 	private String correo;
 	private String telefono;
-	private String contraseña;
+	private String contrasena;
 	private String claveServidor;
-	private Integer idDependencias;
+	private Integer idDependencia;
 	private String codigoVerificacion;
 	private Boolean activo;
 	private Set<String> roles = new HashSet<>();
@@ -57,12 +57,12 @@ public class Usuario {
 		this.telefono = telefono;
 	}
 	
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
 	
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 	
 	public String getClaveServidor() {
@@ -73,12 +73,12 @@ public class Usuario {
 		this.claveServidor = claveServidor;
 	}
 	
-	public Integer getIdDependencias() {
-		return idDependencias;
+	public Integer getIdDependencia() {
+		return idDependencia;
 	}
 	
-	public void setIdDependencias(Integer idDependencias) {
-		this.idDependencias = idDependencias;
+	public void setIdDependencia(Integer idDependencia) {
+		this.idDependencia = idDependencia;
 	}
 	
 	public String getCodigoVerificacion() {
@@ -108,8 +108,8 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "NuevoUsuario [nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno="
-				+ apellidoMaterno + ", correo=" + correo + ", telefono=" + telefono + ", contraseña=" + contraseña
-				+ ", claveServidor=" + claveServidor + ", idDependencias=" + idDependencias + ", codigoVerificacion="
+				+ apellidoMaterno + ", correo=" + correo + ", telefono=" + telefono + ", contrasena=" + contrasena
+				+ ", claveServidor=" + claveServidor + ", idDependencia=" + idDependencia + ", codigoVerificacion="
 				+ codigoVerificacion + ", activo=" + activo + ", roles=" + roles + "]";
 	}
 }

@@ -41,13 +41,13 @@ public class TcUsuario implements Serializable {
 	private String telefono;
 
 	@Column(name = "contraseña")
-	private String contraseña;
+	private String contrasena;
 
 	@Column(name = "clave_servidor")
 	private String claveServidor;
 
 	@Column(name = "id_dependencia")
-	private Integer idDependencias;
+	private Integer idDependencia;
 
 	@Column(name = "codigo_verificacion")
 	private String codigoVerificacion;
@@ -63,15 +63,15 @@ public class TcUsuario implements Serializable {
 	}
 
 	// Constructor completo
-	public TcUsuario(String nombre, String apellidoPaterno, String apellidoMaterno,String correo, String telefono, String contraseña,String claveServidor, Integer idDependencias,String codigoVerificacion, Boolean activo) {
+	public TcUsuario(String nombre, String apellidoPaterno, String apellidoMaterno,String correo, String telefono, String contrasena,String claveServidor, Integer idDependencia,String codigoVerificacion, Boolean activo) {
 		this.nombre = nombre;
 		this.apellidoPaterno = apellidoPaterno;
 		this.apellidoMaterno = apellidoMaterno;
 		this.correo = correo;
 		this.telefono = telefono;
-		this.contraseña = contraseña;
+		this.contrasena = contrasena;
 		this.claveServidor = claveServidor;
-		this.idDependencias = idDependencias;
+		this.idDependencia = idDependencia;
 		this.codigoVerificacion = codigoVerificacion;
 		this.activo = activo;
 	}
@@ -125,12 +125,12 @@ public class TcUsuario implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 	public String getClaveServidor() {
@@ -141,12 +141,12 @@ public class TcUsuario implements Serializable {
 		this.claveServidor = claveServidor;
 	}
 
-	public Integer getIdDependencias() {
-		return idDependencias;
+	public Integer getIdDependencia() {
+		return idDependencia;
 	}
 
-	public void setIdDependencias(Integer idDependencias) {
-		this.idDependencias = idDependencias;
+	public void setIdDependencia(Integer idDependencia) {
+		this.idDependencia = idDependencia;
 	}
 
 	public String getCodigoVerificacion() {
@@ -177,8 +177,8 @@ public class TcUsuario implements Serializable {
 	public String toString() {
 		return "TcUsuario [nId=" + nId + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno
 				+ ", apellidoMaterno=" + apellidoMaterno + ", correo=" + correo + ", telefono=" + telefono
-				+ ", contraseña=" + contraseña + ", claveServidor=" + claveServidor + ", idDependencias="
-				+ idDependencias + ", codigoVerificacion=" + codigoVerificacion + ", activo=" + activo + ", roles="
+				+ ", contrasena=" + contrasena + ", claveServidor=" + claveServidor + ", idDependencia="
+				+ idDependencia + ", codigoVerificacion=" + codigoVerificacion + ", activo=" + activo + ", roles="
 				+ roles + "]";
 	}
 }
