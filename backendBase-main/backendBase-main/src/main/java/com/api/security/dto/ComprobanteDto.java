@@ -2,17 +2,17 @@ package com.api.security.dto;
 
 import java.time.LocalDate;
 
-public class Comprobante {
+public class ComprobanteDto {
 
     private Long id;
     private LocalDate fechaEmision;
     private Long idAsignacion;
 
-    public Comprobante(){
+    public ComprobanteDto(){
 
     }
 
-    public Comprobante(long id, LocalDate fechaEmision, Long idAsignacion){
+    public ComprobanteDto(long id, LocalDate fechaEmision, Long idAsignacion){
         this.id = id;
         this.fechaEmision = fechaEmision;
         this.idAsignacion = idAsignacion;
