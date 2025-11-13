@@ -38,7 +38,7 @@ public class TcDependencia implements Serializable {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_departamento", nullable = false)
-    private TcDepartamento departamento;
+    private TcDepartament departamento;
 
     public TcDependencia() {}
 
@@ -76,11 +76,11 @@ public class TcDependencia implements Serializable {
         this.responsable = responsable;
     }
 
-    public TcDepartamento getDepartamento() {
+    public TcDepartament getDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(TcDepartamento departamento) {
+    public void setDepartamento(TcDepartament departamento) {
         this.departamento = departamento;
     }
 }
