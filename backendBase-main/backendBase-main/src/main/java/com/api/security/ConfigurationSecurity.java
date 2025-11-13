@@ -50,6 +50,7 @@ public class ConfigurationSecurity{
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.authorizeHttpRequests().requestMatchers("/auth/**").permitAll()
+		.requestMatchers("/category/**").authenticated()
 		.requestMatchers("/ws/**").permitAll()
 		.anyRequest().authenticated();
 		

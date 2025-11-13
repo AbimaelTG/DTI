@@ -15,9 +15,6 @@ import org.springframework.stereotype.Component;
 
 import com.api.security.dto.JwtDto;
 import com.api.security.model.UsuarioPrincipal;
-import com.nimbusds.jwt.JWT;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.JWTParser;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
