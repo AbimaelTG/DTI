@@ -18,40 +18,35 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<TcUsuario> guardar(@RequestBody TcUsuario usuario) {
+    public ResponseEntity<TcUsuario> crear(@RequestBody TcUsuario usuario) {
         return ResponseEntity.ok(usuarioService.guardar(usuario));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TcUsuario> actualizar(
-            @PathVariable Long id,
-            @RequestBody TcUsuario usuario) {
+    public ResponseEntity<TcUsuario> actualizar(@PathVariable Long id, @RequestBody TcUsuario usuario) {
         return ResponseEntity.ok(usuarioService.actualizar(id, usuario));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+    public ResponseEntity<String> eliminar(@PathVariable Long id) {
         usuarioService.eliminar(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Usuario eliminado correctamente");
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TcUsuario> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(usuarioService.buscarPorId(id));
+    public ResponseEntity<TcUsuario> obtenerPorId(@PathVariable Long id) {
+        TcUsuario usuario = usuarioService.buscarPorId(id);
+        return usuario != null ? ResponseEntity.ok(usuario) : ResponseEntity.notFound().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<TcUsuario>> listarTodos() {
+    public ResponseEntity<List<TcUsuario>> listar() {
         return ResponseEntity.ok(usuarioService.listarTodos());
     }
 
-    @GetMapping("/correo")
-    public ResponseEntity<TcUsuario> buscarPorCorreo(@RequestParam String correo) {
-        return ResponseEntity.ok(usuarioService.buscarPorCorreo(correo));
-    }
-
-    @GetMapping("/existe-correo")
-    public ResponseEntity<Boolean> existeCorreo(@RequestParam String correo) {
-        return ResponseEntity.ok(usuarioService.existeCorreo(correo));
+    @GetMapping("/correo/{correo}")
+    public ResponseEntity<TcUsuario> buscarPorCorreo(@PathVariable String correo) {
+        TcUsuario usuario = usuarioService.buscarPorCorreo(correo);
+        return usuario != null ? ResponseEntity.ok(usuario) : ResponseEntity.notFound().build();
     }
 }
