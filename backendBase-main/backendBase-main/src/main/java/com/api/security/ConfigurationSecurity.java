@@ -52,6 +52,7 @@ public class ConfigurationSecurity{
 		http.authorizeHttpRequests().requestMatchers("/auth/**").permitAll()
 		.requestMatchers("/category/**").authenticated()
 		.requestMatchers("/department/**").authenticated()
+		.requestMatchers("/good/**").authenticated()
 		.requestMatchers("/ws/**").permitAll()
 		.anyRequest().authenticated();
 		

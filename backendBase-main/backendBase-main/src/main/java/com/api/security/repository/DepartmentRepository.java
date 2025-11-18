@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface DepartmentRepository extends JpaRepository<TcDepartament, Long> {
     Optional<TcDepartament> findByNombre(String name);
+    Optional<TcDepartament> findById(Long id);
     List<TcDepartament> findByNombreContainingIgnoreCase(String name);
     boolean existsByNombre(String name);
 }

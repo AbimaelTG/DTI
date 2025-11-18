@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.security.dto.*;
 import com.api.security.jwt.*;
-import com.api.security.model.TcUsuario;
+import com.api.security.model.TcUser;
 import com.api.security.service.*;
 
 @RestController
@@ -37,10 +37,10 @@ public class AuthController {
 	@Autowired
 	private JwtProvider jwtProvider;
 	@Autowired
-	private UsuarioServiceImp usuarioService;
+	private UserServiceImp usuarioService;
 
 	@PostMapping("/login")
-	public ResponseEntity<JwtDto> login(@RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
+	public ResponseEntity<JwtDto> login(@RequestBody LoginUser loginUsuario, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return new ResponseEntity("campos incorrectos", HttpStatus.BAD_REQUEST);
 		}
@@ -63,7 +63,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/usuario")
-	public ResponseEntity<?> nuevo(@RequestBody Usuario nuevoUsuario, BindingResult bindingResult) {
+	public ResponseEntity<?> nuevo(@RequestBody User nuevoUsuario, BindingResult bindingResult) {
 
 		System.err.println("Datos de nuevo usuario: " + nuevoUsuario);
 
@@ -86,7 +86,7 @@ public class AuthController {
 	}
 
 	@PutMapping("/usuario/{id}")
-	public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody Usuario nuevoUsuario,
+	public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody User nuevoUsuario,
 			BindingResult bindingResult) {
 
 		System.err.println("Actualizando usuario ID: " + id + " con datos: " + nuevoUsuario);
@@ -100,7 +100,7 @@ public class AuthController {
 		}
 
 		if (nuevoUsuario.getCorreo() != null) {
-			Optional<TcUsuario> usuarioConCorreo = usuarioService.getByCorreo(nuevoUsuario.getCorreo());
+			Optional<TcUser> usuarioConCorreo = usuarioService.getByCorreo(nuevoUsuario.getCorreo());
 			if (usuarioConCorreo.isPresent() && !usuarioConCorreo.get().getnId().equals(id)) {
 				return new ResponseEntity<>("El correo ya está registrado por otro usuario", HttpStatus.BAD_REQUEST);
 			}

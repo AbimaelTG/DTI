@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.api.security.model.TwComprobante;
-import com.api.security.repository.ComprobanteRepository;
+import com.api.security.model.TwVoucher;
+import com.api.security.repository.VoucherRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -16,17 +16,17 @@ import jakarta.transaction.Transactional;
 public class ComprobanteService {
 
     @Autowired
-    private ComprobanteRepository comprobanteRepository;
+    private VoucherRepository comprobanteRepository;
 
-    public TwComprobante save(TwComprobante comprobante) {
+    public TwVoucher save(TwVoucher comprobante) {
         return comprobanteRepository.save(comprobante);
     }
 
-    public Optional<TwComprobante> findById(Long id) {
+    public Optional<TwVoucher> findById(Long id) {
         return comprobanteRepository.findById(id);
     }
 
-    public List<TwComprobante> findAll() {
+    public List<TwVoucher> findAll() {
         return comprobanteRepository.findAll();
     }
 
@@ -34,7 +34,7 @@ public class ComprobanteService {
         comprobanteRepository.deleteById(id);
     }
 
-    public List<TwComprobante> findByIdAsignacion(Long idAsignacion) {
+    public List<TwVoucher> findByIdAsignacion(Long idAsignacion) {
         return comprobanteRepository.findByIdAsignacion(idAsignacion);
     }
 

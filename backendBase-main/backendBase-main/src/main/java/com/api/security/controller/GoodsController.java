@@ -1,45 +1,57 @@
+
 package com.api.security.controller;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import com.api.security.model.TwBien;
+import com.api.security.dto.GoodDto;
+import com.api.security.model.TwGood;
 import com.api.security.service.GoodsService;
 
 @RestController
-@RequestMapping("/api/bienes")
+@RequestMapping("good")
 @CrossOrigin(origins = "*")
 public class GoodsController {
 
     @Autowired
-    private GoodsService bienService;
+    private GoodsService goodService;
 
     // Crear bien
     @PostMapping
-    public ResponseEntity<?> createBien(@RequestBody TwBien bien) {
+    public ResponseEntity<?> store(@RequestBody GoodDto good, BindingResult bindingResult) {
 
-        if (bienService.existsByCodigoInventario(bien.getCodigoInventario())) {
-            return ResponseEntity.badRequest().body("Error: El código de inventario ya existe.");
+      System.out.println("Datos de nueva categoria: " + good);
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>("Campos incorrectos", HttpStatus.BAD_REQUEST);
+        }
+        try {
+            goodService.save(good);
+            return new ResponseEntity<>("Categoria creada exitosamente", HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.err.println("Error al crear categoria: " + e.getMessage());
+            e.printStackTrace();
+            return new ResponseEntity<>("Error interno al crear la categoria", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        TwBien nuevo = bienService.save(bien);
-        return ResponseEntity.ok(nuevo);
+     
     }
 
     // Listar todos
     @GetMapping
-    public ResponseEntity<List<TwBien>> getAll() {
-        return ResponseEntity.ok(bienService.findAll());
+    public ResponseEntity<List<TwGood>> getAll() {
+        return ResponseEntity.ok(goodService.findAll());
     }
 
     // Buscar por ID
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
-        Optional<TwBien> bien = bienService.findById(id);
+        Optional<TwGood> bien = goodService.findById(id);
 
         if (bien.isEmpty()) {
             return ResponseEntity.status(404).body("Bien no encontrado");
@@ -47,47 +59,22 @@ public class GoodsController {
 
         return ResponseEntity.ok(bien.get());
     }
-
-    // Actualizar bien
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateBien(@PathVariable Long id, @RequestBody TwBien datos) {
-        Optional<TwBien> bienOptional = bienService.findById(id);
-
-        if (bienOptional.isEmpty()) {
-            return ResponseEntity.status(404).body("Bien no encontrado");
-        }
-
-        TwBien bien = bienOptional.get();
-
-        bien.setDescripcion(datos.getDescripcion());
-        bien.setMarca(datos.getMarca());
-        bien.setModelo(datos.getModelo());
-        bien.setNoSerie(datos.getNoSerie());
-        bien.setEstado(datos.getEstado());
-        bien.setCategoria(datos.getCategoria());
-        bien.setDependencia(datos.getDependencia());
-        bien.setFechaAlta(datos.getFechaAlta());
-        bien.setFechaBaja(datos.getFechaBaja());
-
-        return ResponseEntity.ok(bienService.save(bien));
-    }
-
     // Eliminar
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBien(@PathVariable Long id) {
-        Optional<TwBien> bien = bienService.findById(id);
+        Optional<TwGood> bien = goodService.findById(id);
 
         if (bien.isEmpty()) {
             return ResponseEntity.status(404).body("Bien no encontrado");
         }
 
-        bienService.deleteById(id);
+        goodService.deleteById(id);
         return ResponseEntity.ok("Bien eliminado correctamente");
     }
 
     // Buscar por descripción
     @GetMapping("/buscar/{descripcion}")
-    public ResponseEntity<List<TwBien>> findByDescripcion(@PathVariable String descripcion) {
-        return ResponseEntity.ok(bienService.findByDescripcion(descripcion));
+    public ResponseEntity<List<TwGood>> findByDescripcion(@PathVariable String descripcion) {
+        return ResponseEntity.ok(goodService.findByDescripcion(descripcion));
     }
 }

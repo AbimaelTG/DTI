@@ -6,14 +6,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.api.security.model.TcUsuario;
-import com.api.security.model.UsuarioPrincipal;
+import com.api.security.model.TcUser;
+import com.api.security.model.MainUser;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     
     @Autowired
-    private UsuarioServiceImp usuarioServiceImp;
+    private UserServiceImp usuarioServiceImp;
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -21,13 +21,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println("Buscando usuario por correo: " + username);
         
         // Usa getByCorreo() que es más claro
-        TcUsuario usuario = usuarioServiceImp.getByCorreo(username)
+        TcUser usuario = usuarioServiceImp.getByCorreo(username)
                 .orElseThrow(() -> {
                     System.out.println("Usuario no encontrado: " + username);
                     return new UsernameNotFoundException("Usuario no encontrado: " + username);
                 });
         
         System.out.println("Usuario encontrado: " + usuario.getCorreo());
-        return UsuarioPrincipal.build(usuario);
+        return MainUser.build(usuario);
     }
 }

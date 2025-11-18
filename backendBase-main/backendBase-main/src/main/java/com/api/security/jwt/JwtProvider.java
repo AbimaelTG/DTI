@@ -14,7 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.api.security.dto.JwtDto;
-import com.api.security.model.UsuarioPrincipal;
+import com.api.security.model.MainUser;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -32,7 +32,7 @@ public class JwtProvider {
     private int expiration;
 
     public String generateToken(Authentication authentication) {
-        UsuarioPrincipal usuarioPrincipal = (UsuarioPrincipal) authentication.getPrincipal();
+        MainUser usuarioPrincipal = (MainUser) authentication.getPrincipal();
         List<String> roles = usuarioPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         return Jwts.builder()

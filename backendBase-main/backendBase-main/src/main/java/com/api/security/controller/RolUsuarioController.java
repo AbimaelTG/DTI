@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.api.security.model.TrRolUsuario;
-import com.api.security.service.RolUsuarioService;
+import com.api.security.model.TrRolUser;
+import com.api.security.service.RolUserService;
 
 @RestController
 @RequestMapping("/api/rol-usuario")
@@ -15,11 +15,11 @@ import com.api.security.service.RolUsuarioService;
 public class RolUsuarioController {
 
     @Autowired
-    private RolUsuarioService service;
+    private RolUserService service;
 
     // Obtener todos
     @GetMapping("/list")
-    public ResponseEntity<List<TrRolUsuario>> listAll() {
+    public ResponseEntity<List<TrRolUser>> listAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
@@ -33,7 +33,7 @@ public class RolUsuarioController {
 
     // Crear relación rol-usuario
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody TrRolUsuario trRolUsuario) {
+    public ResponseEntity<?> create(@RequestBody TrRolUser trRolUsuario) {
         Integer idRol = trRolUsuario.getId().getIdRol();
         Integer idUsuario = trRolUsuario.getId().getIdUsuario();
 

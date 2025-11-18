@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.api.security.model.TwAsignacion;
-import com.api.security.repository.AsignacionRepository;
+import com.api.security.model.TwAssignment;
+import com.api.security.repository.AssignmentRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -14,10 +14,10 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class AssignmentService {
 
-    private final AsignacionRepository asignacionRepository;
+    private final AssignmentRepository asignacionRepository;
 
     @Autowired
-    public AssignmentService(AsignacionRepository asignacionRepository) {
+    public AssignmentService(AssignmentRepository asignacionRepository) {
         this.asignacionRepository = asignacionRepository;
     }
 
@@ -25,7 +25,7 @@ public class AssignmentService {
     //                     CRUD
     // ------------------------------------------------------
 
-    public TwAsignacion save(TwAsignacion asignacion) {
+    public TwAssignment save(TwAssignment asignacion) {
         return asignacionRepository.save(asignacion);
     }
 
@@ -36,9 +36,9 @@ public class AssignmentService {
         asignacionRepository.deleteById(id);
     }
 
-    public TwAsignacion update(Long id, TwAsignacion datos) {
+    public TwAssignment update(Long id, TwAssignment datos) {
 
-        TwAsignacion asignacion = asignacionRepository.findById(id)
+        TwAssignment asignacion = asignacionRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("No existe la asignación con ID " + id));
 
         // Actualización de los campos verdaderos
@@ -50,12 +50,12 @@ public class AssignmentService {
         return asignacionRepository.save(asignacion);
     }
 
-    public TwAsignacion getById(Long id) {
+    public TwAssignment getById(Long id) {
         return asignacionRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("No existe la asignación con ID " + id));
     }
 
-    public List<TwAsignacion> getAll() {
+    public List<TwAssignment> getAll() {
         return asignacionRepository.findAll();
     }
 
@@ -64,7 +64,7 @@ public class AssignmentService {
     // ------------------------------------------------------
 
     // Obtener asignaciones por usuario
-    public List<TwAsignacion> getByUsuario(Integer idUsuario) {
+    public List<TwAssignment> getByUsuario(Integer idUsuario) {
         return asignacionRepository.findAllByIdUsuario(idUsuario);
     }
 

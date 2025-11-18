@@ -1,13 +1,19 @@
 package com.api.security.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.api.security.model.TwBien;
-import com.api.security.repository.BienRepository;
+import com.api.security.dto.GoodDto;
+import com.api.security.model.TcCategory;
+import com.api.security.model.TcDependence;
+import com.api.security.model.TwGood;
+import com.api.security.repository.CategoryRepository;
+import com.api.security.repository.DependenceRepository;
+import com.api.security.repository.GoodRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -16,35 +22,63 @@ import jakarta.transaction.Transactional;
 public class GoodsService {
 
     @Autowired
-    private BienRepository bienRepository;
+    private GoodRepository goodRepository;
+
+    @Autowired
+    private CategoryRepository tcCategoryRepository;
+
+    @Autowired
+    private DependenceRepository tcDependenceRepository;
 
     // Verificar si existe un código de inventario
     public boolean existsByCodigoInventario(String codigo) {
-        return bienRepository.existsByCodigoInventario(codigo);
+        return goodRepository.existsByCodigoInventario(codigo);
     }
 
     // Buscar por ID
-    public Optional<TwBien> findById(Long id) {
-        return bienRepository.findById(id);
+    public Optional<TwGood> findById(Long id) {
+
+        if (id != null) {
+            return goodRepository.findById(id);
+        } else {
+            throw new IllegalArgumentException("El id no puede ser nulo");
+        }
+        
     }
 
-    // Guardar bien
-    public TwBien save(TwBien bien) {
-        return bienRepository.save(bien);
+    public void save(GoodDto bienDTO) {
+        TcCategory categoria = tcCategoryRepository.findById(bienDTO.getIdCategoria())
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+
+        TcDependence dependencia = tcDependenceRepository.findById(bienDTO.getIdDependencia())
+                .orElseThrow(() -> new RuntimeException("Dependencia no encontrada"));
+
+        TwGood bien = new TwGood();
+        bien.setCodigoInventario(bienDTO.getCodigoInventario());
+        bien.setDescripcion(bienDTO.getDescripcion());
+        bien.setMarca(bienDTO.getMarca());
+        bien.setModelo(bienDTO.getModelo());
+        bien.setNoSerie(bienDTO.getNoSerie());
+        bien.setEstado(bienDTO.getEstado());
+        bien.setCategoria(categoria);
+        bien.setDependencia(dependencia);
+        bien.setFechaAlta(bienDTO.getFechaAlta());
+        bien.setFechaBaja(bienDTO.getFechaBaja());
+        goodRepository.save(bien);
     }
 
     // Eliminar
     public void deleteById(Long id) {
-        bienRepository.deleteById(id);
+        goodRepository.deleteById(id);
     }
 
     // Listar todos
-    public List<TwBien> findAll() {
-        return bienRepository.findAll();
+    public List<TwGood> findAll() {
+        return goodRepository.findAll();
     }
 
     // Buscar por descripción
-    public List<TwBien> findByDescripcion(String descripcion) {
-        return bienRepository.findByDescripcionContainingIgnoreCase(descripcion);
+    public List<TwGood> findByDescripcion(String descripcion) {
+        return goodRepository.findByDescripcionContainingIgnoreCase(descripcion);
     }
 }
