@@ -34,12 +34,21 @@ public class GoodsController {
             goodService.save(good);
             return new ResponseEntity<>("Categoria creada exitosamente", HttpStatus.CREATED);
         } catch (Exception e) {
-            System.err.println("Error al crear categoria: " + e.getMessage());
-            e.printStackTrace();
-            return new ResponseEntity<>("Error interno al crear la categoria", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-     
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody GoodDto good, BindingResult bindingResult) {
+        System.out.println("Datos de nueva categoria: " + good);
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>("Campos incorrectos", HttpStatus.BAD_REQUEST);
+        }
+        try {
+            goodService.update(id, good);
+            return new ResponseEntity<>("Categoria actualizada exitosamente", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // Listar todos

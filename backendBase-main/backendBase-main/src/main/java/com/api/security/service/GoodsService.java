@@ -43,7 +43,7 @@ public class GoodsService {
         } else {
             throw new IllegalArgumentException("El id no puede ser nulo");
         }
-        
+
     }
 
     public void save(GoodDto bienDTO) {
@@ -65,6 +65,28 @@ public class GoodsService {
         bien.setFechaAlta(bienDTO.getFechaAlta());
         bien.setFechaBaja(bienDTO.getFechaBaja());
         goodRepository.save(bien);
+    }
+
+    public void update(Long id, GoodDto goodDto) {
+        TwGood existBien = goodRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Bien no encontrado"));
+        TcCategory categoria = tcCategoryRepository.findById(goodDto.getIdCategoria())
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+
+        TcDependence dependencia = tcDependenceRepository.findById(goodDto.getIdDependencia())
+                .orElseThrow(() -> new RuntimeException("Dependencia no encontrada"));
+
+        existBien.setCodigoInventario(goodDto.getCodigoInventario());
+        existBien.setDescripcion(goodDto.getDescripcion());
+        existBien.setMarca(goodDto.getMarca());
+        existBien.setModelo(goodDto.getModelo());
+        existBien.setNoSerie(goodDto.getNoSerie());
+        existBien.setEstado(goodDto.getEstado());
+        existBien.setCategoria(categoria);
+        existBien.setDependencia(dependencia);
+        existBien.setFechaAlta(goodDto.getFechaAlta());
+        existBien.setFechaBaja(goodDto.getFechaBaja());
+        goodRepository.save(existBien);
     }
 
     // Eliminar
