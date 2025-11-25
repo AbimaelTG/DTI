@@ -18,7 +18,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class UserServiceImp {
+public class UserServiceImp implements UserService {
 
     @Autowired
     public UserRepository usuarioRepository;
@@ -29,54 +29,58 @@ public class UserServiceImp {
     @Autowired
     private RolServiceImpl rolServiceImpl;
 
-    // CAMBIA ESTOS MÉTODOS - buscan por correo, no por nombre de usuario
+    @Override
     public boolean existsById(Long id) {
         return usuarioRepository.existsById(id);
     }
 
+    @Override
     public Optional<TcUser> getById(Long id) {
         return usuarioRepository.findById(id);
     }
 
+    @Override
     public Optional<TcUser> getByCorreo(String correo) {
         return usuarioRepository.findByCorreo(correo);
     }
 
+    @Override
     public boolean existsByCorreo(String correo) {
         return usuarioRepository.existsByCorreo(correo);
     }
 
-    // Si necesitas mantener compatibilidad, puedes dejar estos pero que usen correo
-    // internamente
+    @Override
     public Optional<TcUser> getByNombreUsuario(String usuario) {
         return usuarioRepository.findByCorreo(usuario);
     }
 
+    @Override
     public boolean existsByNombreUsuario(String usuario) {
         return usuarioRepository.existsByCorreo(usuario);
     }
 
+    @Override
     public void save(User nuevoUsuario) {
-
         TcUser usuario = new TcUser(
-                nuevoUsuario.getNombre(),
-                nuevoUsuario.getApellidoPaterno(),
-                nuevoUsuario.getApellidoMaterno(),
-                nuevoUsuario.getCorreo(),
-                nuevoUsuario.getTelefono(),
-                passwordEncoder.encode(nuevoUsuario.getContrasena()),
-                nuevoUsuario.getClaveServidor(),
-                nuevoUsuario.getIdDependencia(),
-                nuevoUsuario.getCodigoVerificacion(),
-                nuevoUsuario.getActivo());
+            nuevoUsuario.getNombre(),
+            nuevoUsuario.getApellidoPaterno(),
+            nuevoUsuario.getApellidoMaterno(),
+            nuevoUsuario.getCorreo(),
+            nuevoUsuario.getTelefono(),
+            passwordEncoder.encode(nuevoUsuario.getContrasena()),
+            nuevoUsuario.getClaveServidor(),
+            nuevoUsuario.getIdDependencia(),
+            nuevoUsuario.getCodigoVerificacion(),
+            nuevoUsuario.getActivo()
+        );
 
         usuario.setRoles(asignaRol(nuevoUsuario));
 
         usuarioRepository.save(usuario);
     }
 
-    public void actualizar(Long id, User nuevoUsuario) {
-
+    @Override
+    public void update(Long id, User nuevoUsuario) {
         TcUser usuario = usuarioRepository.findById(id).get();
 
         usuario.setNombre(nuevoUsuario.getNombre());
@@ -92,15 +96,14 @@ public class UserServiceImp {
         usuario.setRoles(asignaRol(nuevoUsuario));
 
         usuarioRepository.save(usuario);
-
     }
 
-    public void eliminar(Long id) {
+    @Override
+    public void delete(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("El id no puede ser nulo");
-        } else {
-            usuarioRepository.deleteById(id);
         }
+        usuarioRepository.deleteById(id);
     }
 
     private Set<TcRol> asignaRol(User nuevoUsuario) {
@@ -116,14 +119,13 @@ public class UserServiceImp {
                 }
             }
         }
+
         if (roles.isEmpty()) {
             rolServiceImpl.getByRolNombre(RolNombre.USUARIO).ifPresent(roles::add);
         }
 
-        System.err.println("Roles asignados: " + roles);
         return roles;
-
-        // Hola
     }
-
 }
+
+

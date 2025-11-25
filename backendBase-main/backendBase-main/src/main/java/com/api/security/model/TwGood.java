@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tw_bienes")
+@Table(name = "tw_bien")
 public class TwGood implements Serializable {
 
     private static final long serialVersionUID = 1L;

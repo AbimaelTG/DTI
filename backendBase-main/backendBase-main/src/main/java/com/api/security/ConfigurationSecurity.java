@@ -50,8 +50,11 @@ public class ConfigurationSecurity{
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.authorizeHttpRequests().requestMatchers("/auth/**").permitAll()
+		.requestMatchers("/assignment/**").permitAll()
+		.requestMatchers("/assignments/**").permitAll()
 		.requestMatchers("/category/**").authenticated()
 		.requestMatchers("/department/**").authenticated()
+		.requestMatchers("/dependence/**").authenticated()
 		.requestMatchers("/good/**").authenticated()
 		.requestMatchers("/ws/**").permitAll()
 		.anyRequest().authenticated();

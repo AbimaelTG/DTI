@@ -16,7 +16,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tc_usuarios")
+@Table(name = "tc_usuario")
 public class TcUser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class TcUser implements Serializable {
 	@Column(name = "telefono")
 	private String telefono;
 
-	@Column(name = "contraseña")
+	@Column(name = "contrasena")
 	private String contrasena;
 
 	@Column(name = "clave_servidor")
@@ -56,7 +56,7 @@ public class TcUser implements Serializable {
 	private Boolean activo;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "tr_rol_usuarios", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_rol"))
+	@JoinTable(name = "tr_rol_usuario", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_rol"))
 	private Set<TcRol> roles = new HashSet<>();
 
 	public TcUser() {

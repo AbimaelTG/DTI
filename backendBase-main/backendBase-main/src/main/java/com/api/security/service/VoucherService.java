@@ -13,7 +13,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class ComprobanteService {
+public class VoucherService {
 
     @Autowired
     private VoucherRepository comprobanteRepository;

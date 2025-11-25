@@ -8,15 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.api.security.model.TwVoucher;
-import com.api.security.service.ComprobanteService;
+import com.api.security.service.VoucherService;
 
 @RestController
-@RequestMapping("/api/comprobantes")
+@RequestMapping("/api/comprobante")
 @CrossOrigin(origins = "*")
 public class VoucherController {
 
     @Autowired
-    private ComprobanteService comprobanteService;
+    private VoucherService comprobanteService;
 
     // Crear comprobante
     @PostMapping

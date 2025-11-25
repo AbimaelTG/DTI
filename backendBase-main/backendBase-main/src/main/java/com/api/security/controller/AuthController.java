@@ -107,7 +107,7 @@ public class AuthController {
 		}
 
 		try {
-			usuarioService.actualizar(id, nuevoUsuario);
+			usuarioService.update(id, nuevoUsuario);
 			return new ResponseEntity<>("Usuario actualizado exitosamente", HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -119,7 +119,7 @@ public class AuthController {
 	@DeleteMapping("/usuario/{id}")
 	public ResponseEntity<?> eliminar(@PathVariable Long id) {
 		try {
-			usuarioService.eliminar(id);
+			usuarioService.delete(id);
 			return new ResponseEntity<>("Usuario eliminado exitosamente", HttpStatus.OK);
 		} catch (Exception e) {
 			System.err.println("Error al eliminar usuario: " + e.getMessage());

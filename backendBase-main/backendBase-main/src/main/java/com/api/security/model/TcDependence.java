@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tc_dependencias")
+@Table(name = "tc_dependencia")
 public class TcDependence implements Serializable {
     
     private static final long serialVersionUID = 1L;
