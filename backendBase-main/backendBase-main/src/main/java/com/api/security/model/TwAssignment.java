@@ -38,7 +38,7 @@ public class TwAssignment implements Serializable {
      * Si ya tienes una entidad TcUsuario o similar, cámbiala aquí.
      */
     @Column(name = "id_usuario", nullable = false)
-    private Integer idUsuario;
+    private Long idUsuario;
 
     @Column(name = "fecha_asignacion", nullable = false)
     private LocalDate fechaAsignacion;
@@ -66,11 +66,11 @@ public class TwAssignment implements Serializable {
         this.bien = bien;
     }
 
-    public Integer getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 

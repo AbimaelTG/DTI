@@ -6,8 +6,8 @@ import java.util.List;
 public class AssignmentDto {
     
     private Long id;
-    private Integer idBien;
-    private Integer idUsuario;
+    private Long idBien;
+    private Long idUsuario;
     private LocalDate fechaAsignacion;
     private LocalDate fechaRetorno;
 
@@ -17,7 +17,7 @@ public class AssignmentDto {
 
     }
 
-    public AssignmentDto (Long id, Integer idBien, Integer idUsuario, LocalDate fechaAsignacion, LocalDate fechaRetorno,
+    public AssignmentDto (Long id, Long idBien, Long idUsuario, LocalDate fechaAsignacion, LocalDate fechaRetorno,
                     List<VoucherDto> comprobantes){
         
         this.id = id;
@@ -37,19 +37,19 @@ public class AssignmentDto {
         this.id = id;
     }
 
-    public Integer getIdBien(){
+    public Long getIdBien(){
         return idBien;
     }
 
-    public void setIdBien(Integer idBien){
+    public void setIdBien(Long idBien){
         this.idBien = idBien;
     }
 
-    public Integer getIdUsuario(){
+    public Long getIdUsuario(){
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario){
+    public void setIdUsuario(Long idUsuario){
         this.idUsuario = idUsuario;
     }
 

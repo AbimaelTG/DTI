@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import com.api.security.model.TwAssignment;
+import com.api.security.dto.AssignmentDto;
 import com.api.security.service.AssignmentService;
 
 @RestController
@@ -20,22 +20,28 @@ public class AssignmentController {
     //                     CREATE
     // ------------------------------------------------------
     @PostMapping("/assignment")
-    public ResponseEntity<?> store(@RequestBody TwAssignment asignacion, BindingResult bindingResult) {
-        System.out.println("Datos de nueva asignación: " + asignacion);
-        
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>("Campos incorrectos", HttpStatus.BAD_REQUEST);
-        }
+public ResponseEntity<?> store(@RequestBody AssignmentDto asignacion, BindingResult bindingResult) {
+    System.out.println("Datos de nueva asignación: " + asignacion);
 
-        try {
-            assignmentService.save(asignacion);
-            return new ResponseEntity<>("Asignación creada exitosamente", HttpStatus.CREATED);
-        } catch (Exception e) {
-            System.err.println("Error al crear asignación: " + e.getMessage());
-            e.printStackTrace();
-            return new ResponseEntity<>("Error interno al crear la asignación", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    if (bindingResult.hasErrors()) {
+        return new ResponseEntity<>("Campos incorrectos", HttpStatus.BAD_REQUEST);
     }
+
+    try {
+        assignmentService.save(asignacion);
+        return new ResponseEntity<>("Asignación creada exitosamente", HttpStatus.CREATED);
+
+    } catch (IllegalArgumentException e) {
+        // Aquí entran tus validaciones personalizadas
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+
+    } catch (Exception e) {
+        // Errores inesperados
+        e.printStackTrace();
+        return new ResponseEntity<>("Error interno al crear la asignación", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
 
     // ------------------------------------------------------
     //                     UPDATE
@@ -43,7 +49,7 @@ public class AssignmentController {
     @PutMapping("assignment/{id}")
     public ResponseEntity<?> update(
             @PathVariable Long id,
-            @RequestBody TwAssignment datos,
+            @RequestBody AssignmentDto datos,
             BindingResult bindingResult) {
 
         System.out.println("Datos para actualizar asignación: " + datos);

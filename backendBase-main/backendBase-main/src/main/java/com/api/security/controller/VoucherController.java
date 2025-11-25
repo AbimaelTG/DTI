@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.api.security.dto.VoucherDto;
 import com.api.security.model.TwVoucher;
 import com.api.security.service.VoucherService;
 
@@ -20,7 +21,7 @@ public class VoucherController {
 
     // Crear comprobante
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody TwVoucher comprobante) {
+    public ResponseEntity<?> create(@RequestBody VoucherDto comprobante) {
         TwVoucher nuevo = comprobanteService.save(comprobante);
         return ResponseEntity.ok(nuevo);
     }
@@ -63,7 +64,7 @@ public class VoucherController {
         comprobante.setIdAsignacion(datos.getIdAsignacion());
         comprobante.setFechaEmision(datos.getFechaEmision());
 
-        return ResponseEntity.ok(comprobanteService.save(comprobante));
+        return ResponseEntity.ok(comprobanteService.saveEntity(comprobante));
     }
 
     // Eliminar comprobante

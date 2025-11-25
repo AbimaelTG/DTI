@@ -101,7 +101,7 @@ public class AuthController {
 
 		if (nuevoUsuario.getCorreo() != null) {
 			Optional<TcUser> usuarioConCorreo = usuarioService.getByCorreo(nuevoUsuario.getCorreo());
-			if (usuarioConCorreo.isPresent() && !usuarioConCorreo.get().getnId().equals(id)) {
+			if (usuarioConCorreo.isPresent() && !usuarioConCorreo.get().getId().equals(id)) {
 				return new ResponseEntity<>("El correo ya está registrado por otro usuario", HttpStatus.BAD_REQUEST);
 			}
 		}

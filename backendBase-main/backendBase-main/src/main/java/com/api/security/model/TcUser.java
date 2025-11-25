@@ -23,7 +23,7 @@ public class TcUser implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long nId;
+	private Long Id;
 
 	@Column(name = "nombre")
 	private String nombre;
@@ -77,12 +77,12 @@ public class TcUser implements Serializable {
 	}
 
 	// Getters y Setters
-	public Long getnId() {
-		return nId;
+	public Long getId() {
+		return Id;
 	}
 
-	public void setnId(Long nId) {
-		this.nId = nId;
+	public void setId(Long Id) {
+		this.Id = Id;
 	}
 
 	public String getNombre() {
@@ -175,7 +175,7 @@ public class TcUser implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TcUsuario [nId=" + nId + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno
+		return "TcUsuario [Id=" + Id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno
 				+ ", apellidoMaterno=" + apellidoMaterno + ", correo=" + correo + ", telefono=" + telefono
 				+ ", contrasena=" + contrasena + ", claveServidor=" + claveServidor + ", idDependencia="
 				+ idDependencia + ", codigoVerificacion=" + codigoVerificacion + ", activo=" + activo + ", roles="

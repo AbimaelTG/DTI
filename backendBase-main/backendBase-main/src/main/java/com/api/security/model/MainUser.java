@@ -56,7 +56,7 @@ public class MainUser implements UserDetails {
 		
 		// Regresa el usuario con sus privilegios
 		return new MainUser(
-			usuario.getnId(),
+			usuario.getId(),
 			usuario.getNombre(),
 			usuario.getApellidoPaterno(),
 			usuario.getApellidoMaterno(),

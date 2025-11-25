@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.security.dto.VoucherDto;
 import com.api.security.model.TwVoucher;
 import com.api.security.repository.VoucherRepository;
 
@@ -16,29 +17,41 @@ import jakarta.transaction.Transactional;
 public class VoucherService {
 
     @Autowired
-    private VoucherRepository comprobanteRepository;
+    private VoucherRepository voucherRepository;
 
-    public TwVoucher save(TwVoucher comprobante) {
-        return comprobanteRepository.save(comprobante);
+    // Guardar desde DTO
+    public TwVoucher save(VoucherDto dto) {
+
+        TwVoucher entity = new TwVoucher();
+        entity.setId(dto.getId());
+        entity.setIdAsignacion(dto.getIdAsignacion());
+        entity.setFechaEmision(dto.getFechaEmision());
+
+        return voucherRepository.save(entity);
+    }
+
+    // Guardar desde entity (para update)
+    public TwVoucher saveEntity(TwVoucher voucher) {
+        return voucherRepository.save(voucher);
     }
 
     public Optional<TwVoucher> findById(Long id) {
-        return comprobanteRepository.findById(id);
+        return voucherRepository.findById(id);
     }
 
     public List<TwVoucher> findAll() {
-        return comprobanteRepository.findAll();
+        return voucherRepository.findAll();
     }
 
     public void deleteById(Long id) {
-        comprobanteRepository.deleteById(id);
+        voucherRepository.deleteById(id);
     }
 
     public List<TwVoucher> findByIdAsignacion(Long idAsignacion) {
-        return comprobanteRepository.findByIdAsignacion(idAsignacion);
+        return voucherRepository.findByIdAsignacion(idAsignacion);
     }
 
     public boolean existsByIdAsignacion(Long idAsignacion) {
-        return comprobanteRepository.existsByIdAsignacion(idAsignacion);
+        return voucherRepository.existsByIdAsignacion(idAsignacion);
     }
 }
