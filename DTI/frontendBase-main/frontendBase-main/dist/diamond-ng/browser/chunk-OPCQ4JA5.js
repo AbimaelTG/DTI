@@ -1,0 +1,1 @@
+import{Cb as a,Ha as n,fb as o,gb as i}from"./chunk-ZS4RC7DI.js";var s=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-index"]],decls:2,vars:0,template:function(e,m){e&1&&(o(0,"p"),a(1,"index works!"),i())},encapsulation:2})};export{s as Index};
