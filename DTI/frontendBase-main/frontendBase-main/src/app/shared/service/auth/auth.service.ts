@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { LoginUsuario } from '../../../model/login-usuario';
 import { JwtDto } from '../../../model/dto/jwt-dto';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -10,7 +11,14 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
+    private API_URL = 'http://localhost:4043/api/auth'; // <-- Ajusta a tu backend
+
+
   constructor(private http: HttpClient) { }
+
+  sendVerificationCode(correo: string): Observable<any> {
+    return this.http.post(`${this.API_URL}/forgot-password`, { correo });
+  }
 
   public login (loginUsuario: LoginUsuario){
   console.log('login en service', loginUsuario);

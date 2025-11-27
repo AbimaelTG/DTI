@@ -73,6 +73,12 @@ export const appRoutes: Routes = [
             loadComponent: () => import('@/pages/auth/verification').then(m => m.Verification),
              },
 
+             {
+                path: 'forgotpassword',
+                loadComponent: ()=>
+                    import('@/pages/auth/forgotpassword').then(m => m.ForgotPassword)
+             },
+
             {
                 path: '',
                 redirectTo: 'login',
